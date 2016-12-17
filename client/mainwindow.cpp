@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
+#include "client.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +21,14 @@ void MainWindow::on_pushButton_clicked()
     ui->resultList->addItem("Gathering input data");
 
     ///TODO: collect the data in specific format
+
+    Client * c = new Client("localhost", 2021);
+
+    c->SendMessageToServer("Test");
+    QString res = c->ReadFromServer().c_str();
+    ui->resultList->addItem(res);
+
+    delete c;
 
     ui->resultList->addItem("Searching started");
 
