@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLineEdit>
+#include "client.h"
 
 namespace Ui {
 class MainWindow;
@@ -47,10 +48,12 @@ private slots:
 
     void on_fifthPersonLongLineEdit_editingFinished();
 
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     int inputCount;
-
+    Client * c;
     void setReadOnly(QLineEdit * latChanged,
                      QLineEdit * longChanged,
                      QLineEdit * nextName,

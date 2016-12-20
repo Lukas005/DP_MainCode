@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     inputCount = 0;
+    c = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -18,11 +19,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    ui->resultList->addItem("Gathering input data");
 
     ///TODO: collect the data in specific format
 
-    Client * c = new Client("localhost", 2021);
+    if(c == NULL)
+    {
+        ui->resultList->addItem("Connect first to the server.");
+        return;
+    }
+    ui->resultList->addItem("Gathering input data");
+
+    // Client * c = new Client("localhost", 2021);
 
     c->SendMessageToServer("Test");
     QString res = c->ReadFromServer().c_str();
@@ -162,4 +169,12 @@ void MainWindow::on_fifthPersonLatLineEdit_editingFinished()
 void MainWindow::on_fifthPersonLongLineEdit_editingFinished()
 {
 
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    std::string servername = ui->ServerLineEdit->text().toStdString();
+    int port = ui->PortLineEdit->text().toInt(NULL, 10);
+    c = new Client(servername, port);
+    ui->resultList->addItem("Connected to the server.");
 }
