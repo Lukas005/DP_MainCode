@@ -5,6 +5,12 @@
 #include "node.hpp"
 #include <cstring>
 
+struct NodePair
+{
+    Node * n1;
+    Node * n2;
+};
+
 class DataReader{
 private:
     GDALDataset * pDS;
@@ -13,8 +19,9 @@ private:
 public:
     DataReader(std::string );
     int InitLayer(int);
-    int PopulateNodeFromLine(Node*, Node*) const;
+    NodePair GetNodesFromCurrentLine() const;
     int GetDataSize() const;
+    double static DistanceBetweenTwoPoints(Node * , Node *);
     ~DataReader();
 };
 

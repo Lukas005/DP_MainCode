@@ -13,12 +13,20 @@ int main(int argc, char const *argv[]) {
 
     DataReader d (input);
     Node *n1, *n2;
+    NodePair p;
 
     d.InitLayer(0);
-    d.PopulateNodeFromLine(n1, n2);
 
+//    for (int i = 0; i < 10; i++)
+    {
+        p = d.GetNodesFromCurrentLine();
+        n1 = p.n1;
+        n2 = p.n2;
 
-    cout << n1->GetID() << n1->GetX() << n1->GetY() << endl ;
+        cout << n1->GetID() << " " << n1->GetLat()  << " "  << n1->GetLon()  << " " << endl ;
+        cout << n2->GetID() << " " << n2->GetLat()  << " "  << n2->GetLon()  << " " << endl ;
+        cout << DataReader::DistanceBetweenTwoPoints(n1, n2) << endl;
+    }
     cout << "Hello world" << endl;
     return 0;
 }
