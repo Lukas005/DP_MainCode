@@ -5,9 +5,9 @@ using namespace std;
 
 Node::Node(unsigned int nid, double nx, double ny)
 {
-    id = nid;
-    x = nx;
-    y = ny;
+    id = iid++;
+    lat = nx;
+    lon = ny;
     maxAdjNodes = 4;
     adjNodesCount = 0;
     adjNodes = new Node*[maxAdjNodes];
@@ -48,14 +48,14 @@ unsigned Node::GetID() const
     return id;
 }
 
-double Node::GetX() const
+double Node::GetLat() const
 {
-    return x;
+    return lat;
 }
 
-double Node::GetY() const
+double Node::GetLon() const
 {
-    return y;
+    return lon;
 }
 
 Node::~Node()
