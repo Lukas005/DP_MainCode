@@ -56,8 +56,10 @@ NodePair DataReader::GetNodesFromCurrentLine() const
         pair.n1 = new Node(0, pLine->getY(0), pLine->getX(0));
         pair.n2 = new Node(1, pLine->getY(1), pLine->getX(1));
 
-        pair.n1->AddNeighbour(pair.n2);
-        pair.n2->AddNeighbour(pair.n1);
+        double dist = DistanceBetweenTwoPoints(pair.n1, pair.n2);
+
+        pair.n1->AddNeighbour(pair.n2, dist);
+        pair.n2->AddNeighbour(pair.n1, dist);
 
         // printf( "1: %f,%f 2: %f, %f\n", poPoint->getX(0), poPoint->getY(0), poPoint->getX(2), poPoint->getY(1));
     }

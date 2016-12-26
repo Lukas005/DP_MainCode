@@ -11,6 +11,7 @@ Node::Node(unsigned int nid, double nx, double ny)
     maxAdjNodes = 4;
     adjNodesCount = 0;
     adjNodes = new Node*[maxAdjNodes];
+    edgeW = new double[maxAdjNodes];
 }
 
 Node * Node::GetNode(int index) const
@@ -24,7 +25,7 @@ Node * Node::GetNode(int index) const
     return adjNodes[index];
 }
 
-int Node::AddNeighbour(Node * pNode)
+int Node::AddNeighbour(Node * pNode, double distance)
 {
     if (pNode == NULL)
     {
@@ -32,18 +33,25 @@ int Node::AddNeighbour(Node * pNode)
         return 1;
     }
 
-    adjNodes[adjNodesCount++] = pNode;
+    adjNodes[adjNodesCount] = pNode;
+    edgeW[adjNodesCount] = distance;
+
+    adjNodesCount++;
 
     if(adjNodesCount == maxAdjNodes)
     {
         maxAdjNodes *= 2;
         Node ** resizeAdjNodes = new Node*[maxAdjNodes];
+        double * resEdgeW = new double[maxAdjNodes];
         for (int i = 0; i < adjNodesCount; i++) {
             resizeAdjNodes[i] = adjNodes[i];
+            resEdgeW[i] = edgeW[i];
         }
 
+        delete [] edgeW;
         delete [] adjNodes;
         adjNodes = resizeAdjNodes;
+        edgeW = resEdgeW;
     }
 
     return 0;

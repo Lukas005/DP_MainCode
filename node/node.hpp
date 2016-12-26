@@ -7,6 +7,7 @@ private:
     double lat;
     double lon;
     Node ** adjNodes;
+    double * edgeW;
     int adjNodesCount;
     int maxAdjNodes;
 public:
@@ -15,7 +16,7 @@ public:
     double GetLat() const;
     double GetLon() const;
     Node * GetNode(int ) const;
-    int AddNeighbour(Node * );
+    int AddNeighbour(Node * , double );
     ~Node();
 };
 
