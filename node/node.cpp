@@ -62,10 +62,16 @@ unsigned Node::GetID() const
     return id;
 }
 
+pair<double, double> Node::GetCoords() const
+{
+    return make_pair(lat, lon);
+}
+
 double Node::GetLat() const
 {
     return lat;
 }
+
 
 double Node::GetLon() const
 {
@@ -75,4 +81,5 @@ double Node::GetLon() const
 Node::~Node()
 {
     delete [] adjNodes;
+    delete [] edgeW;
 }

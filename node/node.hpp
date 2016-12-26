@@ -1,6 +1,8 @@
 #ifndef _NODE_HPP_
 #define  _NODE_HPP_
 
+#include <utility>
+
 class Node{
 private:
     unsigned int id;
@@ -13,6 +15,7 @@ private:
 public:
     Node(unsigned int , double, double);
     unsigned int GetID() const;
+    std::pair<double, double> GetCoords() const;
     double GetLat() const;
     double GetLon() const;
     Node * GetNode(int ) const;
