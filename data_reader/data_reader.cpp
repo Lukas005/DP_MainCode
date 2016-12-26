@@ -11,6 +11,7 @@ DataReader::DataReader(string inputFile)
         cerr << "GDALOpenEx: Failed to open" << endl;
     }
     pLayer = NULL;
+    featureCount = -1;
 }
 
 int DataReader::InitLayer(int index)
@@ -23,6 +24,7 @@ int DataReader::InitLayer(int index)
     }
 
     pLayer->ResetReading();
+    featureCount = pLayer->GetFeatureCount();
     return 0;
 }
 
@@ -88,6 +90,12 @@ double DataReader::DistanceBetweenTwoPoints(Node * n1, Node * n2)
 
     return o * 6371;    // Earth radius
 }
+
+int DataReader::GetLayerSize() const
+{
+    return featureCount;
+}
+
 
 
 DataReader::~DataReader()

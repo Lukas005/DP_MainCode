@@ -15,12 +15,13 @@ class DataReader{
 private:
     GDALDataset * pDS;
     OGRLayer * pLayer;
+    int featureCount;
 
 public:
     DataReader(std::string );
     int InitLayer(int);
     NodePair GetNodesFromCurrentLine() const;
-    int GetDataSize() const;
+    int GetLayerSize() const;
     double static DistanceBetweenTwoPoints(Node * , Node *);
     ~DataReader();
 };

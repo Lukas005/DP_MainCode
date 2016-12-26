@@ -17,6 +17,8 @@ int main(int argc, char const *argv[]) {
 
     d.InitLayer(0);
 
+    cout << "Size: " << d.GetLayerSize() << endl;
+
 //    for (int i = 0; i < 10; i++)
     {
         p = d.GetNodesFromCurrentLine();
