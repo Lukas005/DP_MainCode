@@ -26,6 +26,12 @@ Node * Node::GetNode(int index) const
 
 int Node::AddNeighbour(Node * pNode)
 {
+    if (pNode == NULL)
+    {
+        cerr << "Node::AddNeighbour: Argument null";
+        return 1;
+    }
+
     adjNodes[adjNodesCount++] = pNode;
 
     if(adjNodesCount == maxAdjNodes)
