@@ -54,7 +54,7 @@ NodePair DataReader::GetNodesFromCurrentLine() const
             && wkbFlatten(pG->getGeometryType()) == wkbLineString )
     {
         OGRLineString *pLine = (OGRLineString *) pG;
-        cout << "bla" << endl;
+        
         pair.n1 = new Node(0, pLine->getY(0), pLine->getX(0));
         pair.n2 = new Node(1, pLine->getY(1), pLine->getX(1));
 
