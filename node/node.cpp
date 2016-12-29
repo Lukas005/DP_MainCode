@@ -3,26 +3,49 @@
 
 using namespace std;
 
-Node::Node(unsigned int nid, double nx, double ny)
+Node::Node(double nx, double ny)
 {
-    id = iid++;
     lat = nx;
     lon = ny;
     maxAdjNodes = 4;
     adjNodesCount = 0;
     adjNodes = new Node*[maxAdjNodes];
     edgeW = new double[maxAdjNodes];
+    marked = false;
 }
 
-Node * Node::GetNode(int index) const
+void Node::Mark(int * const counter)
+{
+    if(marked)
+    {
+        return;
+    }
+    else
+    {
+        marked =  true;
+        cout << "Marked: " << lat << "-" << lon << endl;
+        (*counter)++;
+        for (int i = 0; i < adjNodesCount; i++) {
+            adjNodes[i]->Mark(counter);
+        }
+    }
+}
+
+pair<Node *, double> Node::GetNode(int index) const
 {
     if (index >= adjNodesCount)
     {
         cerr << "GetNode: Index " << index << " is out of range." << endl;
-        return NULL;
+        Node * err;
+        return make_pair(err, -1);
     }
 
-    return adjNodes[index];
+    return make_pair(adjNodes[index], edgeW[index]);
+}
+
+int Node::GetEdges() const
+{
+    return adjNodesCount;
 }
 
 int Node::AddNeighbour(Node * pNode, double distance)
@@ -55,11 +78,6 @@ int Node::AddNeighbour(Node * pNode, double distance)
     }
 
     return 0;
-}
-
-unsigned Node::GetID() const
-{
-    return id;
 }
 
 pair<double, double> Node::GetCoords() const

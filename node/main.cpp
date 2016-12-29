@@ -9,8 +9,8 @@ int main(int argc, char const *argv[]) {
     cout << n.GetID() << " " << n.GetCoords().first << " " << n.GetCoords().second << endl;
     n.AddNeighbour(&n2, 4);
 
-    cout << n.GetNode(0)->GetCoords().second << endl;
-    cout << (n.GetNode(1) == NULL);
+    cout << n.GetNode(0).first->GetCoords().second << endl;
+    cout << (n.GetNode(1).first == NULL);
 
     return 0;
 }
