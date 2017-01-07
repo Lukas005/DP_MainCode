@@ -30,8 +30,9 @@ void MainWindow::on_pushButton_clicked()
     ui->resultList->addItem("Gathering input data");
 
     // Client * c = new Client("localhost", 2021);
-
-    c->SendMessageToServer("Test");
+    char buffer[128];
+    sprintf(buffer, "Test: %d\n", this->getInputCount());
+    c->SendMessageToServer(buffer);
     QString res = c->ReadFromServer().c_str();
     ui->resultList->addItem(res);
 
@@ -42,6 +43,36 @@ void MainWindow::on_pushButton_clicked()
     ///TODO: start the search alg.
     ///
     /// Report into ui->resultList
+
+}
+
+
+int MainWindow::getInputCount()
+{
+    if(ui->secPersonLongLineEdit->isReadOnly())
+    {
+        return 0;
+    }
+    else if(ui->thirdPersonLongLineEdit->isReadOnly())
+    {
+        return 1;
+    }
+    else if(ui->fourthPersonLongLineEdit->isReadOnly())
+    {
+        return 2;
+    }
+    else if(ui->fifthPersonLongLineEdit->isReadOnly())
+    {
+        return 3;
+    }
+    else if(ui->fifthPersonLongLineEdit->text().isEmpty() || ui->fifthPersonLatLineEdit->text().isEmpty() )
+    {
+        return 4;
+    }
+    else
+    {
+        return 5;
+    }
 
 }
 
@@ -95,7 +126,7 @@ void MainWindow::setReadOnly(QLineEdit* latChanged, QLineEdit* longChanged, QLin
     if(!nextName->isReadOnly() && (latChanged->text().isEmpty()
             || longChanged->text().isEmpty()))
     {
-        ui->resultList->addItem("Edited person contains invalid data. Next persons disabled.");
+        ui->resultList->addItem("Edited person contains invalid data. Next persons are disabled.");
         nextLat->setReadOnly(true);
         nextName->setReadOnly(true);
         nextLong->setReadOnly(true);
