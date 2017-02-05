@@ -4,7 +4,7 @@
 
 class CDijkstra{
 public:
-    static void dijkstra(Graph );
+    static std::map<std::pair<double, double>, double * > dijkstra(Graph *, std::pair<double, double>, int, int);
 };
 
 #endif
