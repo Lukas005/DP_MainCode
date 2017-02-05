@@ -8,6 +8,23 @@ Graph::Graph()
 
 }
 
+void Graph::PrintGraph()
+{
+    map<pair<double, double>, Node *>::iterator i;
+
+    for(i= Nodes.begin(); i!= Nodes.end(); i++)
+    {
+        Node * n = i->second;
+        cout << "Node: " << n->GetLat() << " " << n->GetLon() << endl;
+        for (int j = 0; j < n->GetEdgesCount(); j++)
+        {
+            pair<Node*, double> pnd = n->GetNode(j);
+            cout << pnd.first->GetLat() << " " <<pnd.first->GetLon() <<": " << pnd.second << endl;
+        }
+        cout << "----" << endl;
+    }
+
+}
 
 int Graph::ReachableNodesCount()
 {
@@ -37,7 +54,7 @@ int Graph::AddNodePair(Node * n1, Node * n2)
     }
     b = Nodes[coordinates];
     // add edge from n1 to n2
-    if(n1->GetEdges() != 1 || n2->GetEdges() != 1)
+    if(n1->GetEdgesCount() != 1 || n2->GetEdgesCount() != 1)
     {
         cerr<< "Nodes included are not having just one neighbour." << endl;
     }
@@ -52,6 +69,11 @@ int Graph::AddNodePair(Node * n1, Node * n2)
 Node * Graph::GetNode(double lat, double lon)
 {
     return Nodes[make_pair(lat, lon)];
+}
+
+Node * Graph::GetNode(pair<double, double> p)
+{
+    return Nodes[p];
 }
 
 int Graph::ConstructGraph(DataReader * dr)
@@ -77,6 +99,7 @@ int Graph::GetSize() const
     return Nodes.size();
 }
 
+/*
 Node * Graph::FindClosest(std::pair<double, double> in)
 {
     std::map<std::pair<double, double>, Node * >::iterator closest;
@@ -85,6 +108,32 @@ Node * Graph::FindClosest(std::pair<double, double> in)
         closest--;
     return closest->second;
 }
+*/
+map<pair<double, double>, double* > Graph::CreateDistanceArray(int s)
+{
+    map<pair<double, double>, Node *>::iterator i;
+    map<pair<double, double>, double *> distanceArray;
+
+    for(i= Nodes.begin(); i!= Nodes.end(); i++)
+    {
+        distanceArray[i->first] = new double[s];
+    }
+
+    return distanceArray;
+}
+
+
+void Graph::RemoveDistanceArray(map<pair<double, double>, double * > *da)
+{
+    map<pair<double, double>, double * >::iterator i;
+
+    for (i = da->begin(); i!=da->end(); i++)
+    {
+        delete [] i->second;
+    }
+
+}
+
 
 Node * Graph::FindClosest2(std::pair<double, double> in)
 {

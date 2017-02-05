@@ -17,8 +17,9 @@ public:
     std::pair<double, double> GetCoords() const;
     double GetLat() const;
     double GetLon() const;
-    int GetEdges() const;
-    std::pair<Node *, double> GetNode(int ) const;
+    int GetEdgesCount() const;
+    Node ** GetEdges();
+    std::pair<Node *, double> GetNode(int ) const; // returns the node and weight of the edge
     void Mark(int * const );
     int AddNeighbour(Node * , double );
     ~Node();

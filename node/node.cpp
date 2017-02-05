@@ -43,9 +43,14 @@ pair<Node *, double> Node::GetNode(int index) const
     return make_pair(adjNodes[index], edgeW[index]);
 }
 
-int Node::GetEdges() const
+int Node::GetEdgesCount() const
 {
     return adjNodesCount;
+}
+
+Node ** Node::GetEdges()
+{
+    return adjNodes;
 }
 
 int Node::AddNeighbour(Node * pNode, double distance)
