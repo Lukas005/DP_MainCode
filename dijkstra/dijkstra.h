@@ -3,8 +3,15 @@
 #include "graph.h"
 
 class CDijkstra{
+
+private:
+    static void dijkstra(Graph *, std::pair<double, double>, std::map<std::pair<double , double>, double * > &, int);
+    static void dijkstra2(Graph *, std::pair<double, double>, std::map<std::pair<double , double>, double * > &, int);
+    static double StandartDeviation(double * , int , int);
+    static double SumFunc(double *, int );
+
 public:
-    static std::map<std::pair<double, double>, double * > dijkstra(Graph *, std::pair<double, double>, int, int);
+    static int MeetingSchedulerSeq(Graph *, std::pair<double, double> *, int);
 };
 
 #endif
