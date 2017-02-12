@@ -61,31 +61,37 @@ void CDijkstra::dijkstra(Graph * g, pair<double, double> isource, map<PD, double
     }
 }
 
-void CDijkstra::dijkstra2(Graph * g , std::pair<double, double> source, std::map<std::pair<double , double>, double * > & dist, int input_index)
+void CDijkstra::SeqentialDijkstra(Graph * g , std::pair<double, double> source, std::map<std::pair<double , double>, double * > & dist, int input_index)
 {
-    set< pair< double, PD > > setds;
-    //    vector<double> dist(g->GetSize(), 9999999)
-    setds.insert(make_pair( 0, source ));
+    // init priority queue based on the distance
+    set< pair< double, PD > > pq;
+
+    // insert first node to the queue
+    pq.insert(make_pair( 0, source ));
     dist[source][input_index] = 0;
 
-    while (!setds.empty()) {
-        pair< double, PD> tmp = *(setds.begin());
-        setds.erase(setds.begin());
 
+    while (!pq.empty()) {
+        // ExtarctMin from the queue
+        pair< double, PD> tmp = *(pq.begin());
+        pq.erase(pq.begin());
         PD u = tmp.second;
         Node * n = g->GetNode(u);
+
+        // iterate trough the adjacent nodes
         for (int i = 0; i < n->GetEdgesCount(); i++) {
             pair<Node*, double> node_edge = n->GetNode(i);
             double dist_temp  = dist[u][input_index] + node_edge.second;
             if (dist[node_edge.first->GetCoords()][input_index] > dist_temp)
             {
+                // removing already existing entry from the set (for finalized nodes this step is unreacheable)
                 if(dist[node_edge.first->GetCoords()][input_index] != DBL_MAX)
                 {
-                    setds.erase(setds.find(make_pair(dist[node_edge.first->GetCoords()][input_index], node_edge.first->GetCoords())));
+                    pq.erase(pq.find(make_pair(dist[node_edge.first->GetCoords()][input_index], node_edge.first->GetCoords())));
                 }
 
                 dist[node_edge.first->GetCoords()][input_index] = dist_temp;
-                setds.insert(make_pair(dist[node_edge.first->GetCoords()][input_index], node_edge.first->GetCoords()));
+                pq.insert(make_pair(dist[node_edge.first->GetCoords()][input_index], node_edge.first->GetCoords()));
             }
         }
 
